@@ -24,3 +24,24 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Keep code inside its own scroll container; don't widen the page */
+pre,
+code,
+kbd,
+samp {
+  font-family:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', monospace;
+}
+pre {
+  -webkit-overflow-scrolling: touch;
+  overflow-x: visible; /* scrolling handled by wrapper */
+}
+
+/* Optional: guard against accidental horizontal scroll elsewhere */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
