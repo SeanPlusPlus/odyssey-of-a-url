@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Odyssey of a URL
 
-## Getting Started
+A lightweight deep dive into what really happens when you type a web address into your browser and hit **Enter**. From DNS lookups to AWS infrastructure, down through the DOM and render tree inside your browser, this project follows the full odyssey of a URL.
 
-First, run the development server:
+🔗 Live site: [odyssey-of-a-url.vercel.app](https://odyssey-of-a-url.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This is a **single-page site** that walks through the journey of a URL:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **DNS Resolution** – how your browser finds the right server.
+2. **AWS & Routing** – requests traveling through the cloud.
+3. **TLS & HTTP** – secure handshakes and fetching resources.
+4. **Browser Parsing** – HTML, CSS, and JavaScript.
+5. **DOM & Render Tree** – turning code into structure and style.
+6. **Painting & Compositing** – pixels drawn to the screen.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Next.js / Vercel** – for simple deployment
+* **Tailwind CSS** – clean, responsive styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🤝 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is just for fun and education. PRs and suggestions are welcome if you have ideas to improve clarity or add cool visualizations.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📜 License
+
+MIT License — free to use and share.
