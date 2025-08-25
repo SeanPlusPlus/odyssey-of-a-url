@@ -2,6 +2,8 @@
 
 A lightweight deep dive into what really happens when you type a web address into your browser and hit **Enter**. From DNS lookups to AWS infrastructure, down through the DOM and render tree inside your browser, this project follows the full odyssey of a URL.
 
+![Odyssey of a URL banner](https://odyssey-of-a-url.vercel.app/odyssey-16x9.png)
+
 🔗 Live site: [odyssey-of-a-url.vercel.app](https://odyssey-of-a-url.vercel.app/)
 
 ---
