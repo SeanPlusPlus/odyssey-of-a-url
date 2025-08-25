@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -9,11 +10,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://odyssey-of-a-url.vercel.app'),
   title: 'Odyssey of a URL',
   description: 'A deep dive into what happens when you hit enter in the browser',
-  icons: {
-    icon: '/favicon.ico', // for browsers
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png', // optional if you add one later
-  },
   openGraph: {
     type: 'website',
     url: '/',
@@ -22,7 +18,7 @@ export const metadata: Metadata = {
     description: 'A deep dive into what happens when you hit enter in the browser',
     images: [
       {
-        url: '/odyssey.png', // resolves to absolute via metadataBase
+        url: '/odyssey.png',
         width: 1200,
         height: 1200,
         alt: 'Odyssey of a URL – binary sea voyage',
