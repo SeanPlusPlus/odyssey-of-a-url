@@ -21,8 +21,8 @@ This is a **single-page site** that walks through the journey of a URL:
 
 ## 🛠️ Tech Stack
 
-* **Next.js / Vercel** – for simple deployment
-* **Tailwind CSS** – clean, responsive styling
+- **Next.js / Vercel** – for simple deployment
+- **Tailwind CSS** – clean, responsive styling
 
 ---
 
