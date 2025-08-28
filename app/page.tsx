@@ -1,6 +1,8 @@
-import Welcome from '@/components/Welcome'
-import AsciiDiagram from '@/components/AsciiDiagram'
 import Image from 'next/image'
+import Welcome from '@/components/Welcome'
+import Mermaid from '@/components/Mermaid'
+import { gitlabish } from '@/components/mermaidThemes'
+import { odyssey } from '@/data/chart'
 
 export default function Home() {
   return (
@@ -21,10 +23,12 @@ export default function Home() {
         </div>
 
         <section aria-label="ascii-diagram-preview" className="space-y-3">
-          <h2 className="text-sm font-medium uppercase tracking-wide text-foreground/70">
-            First Glimpse: The Route Map
-          </h2>
-          <AsciiDiagram />
+          <Mermaid
+            chart={odyssey}
+            theme={gitlabish.theme}
+            themeVariables={gitlabish.themeVariables}
+            themeCSS={gitlabish.themeCSS}
+          />
         </section>
       </main>
     </div>

@@ -12,6 +12,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "mermaid": "^11.10.1",
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"

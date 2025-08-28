@@ -4,10 +4,20 @@ export default function Welcome() {
       <h1 className="text-4xl font-bold tracking-tight">Welcome to the Odyssey of a URL</h1>
 
       <p className="text-base leading-relaxed text-foreground/80">
-        Every great journey starts with a single keystroke. This site follows the path of a URL as
-        it sets sail across DNS seas, drifts through AWS skies, and lands on the shores of your
-        browser where the DOM and render tree come alive. Along the way you’ll see maps, diagrams,
-        and a few surprises. Built by{' '}
+        This site breaks down what happens when you type a URL and press Enter, explained with clear
+        diagrams and notes.
+      </p>
+
+      <ul className="list-disc list-inside space-y-1 text-base leading-relaxed text-foreground/80">
+        <li>✨ The Magic of the Internet: DNS, TCP/IP, and TLS connecting your request</li>
+        <li>
+          ☁️ Cloud Infrastructure: AWS edge/CDN through HAProxy, Varnish, app, cache, and datastore
+        </li>
+        <li>🖥️ How a Browser Works: DOM, CSSOM, render tree, layout, and paint</li>
+      </ul>
+
+      <p className="text-base leading-relaxed text-foreground/80">
+        Built by{' '}
         <a
           href="https://seanplusplus.com/"
           target="_blank"
