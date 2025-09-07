@@ -25,7 +25,8 @@ export default function Home() {
 
         <section aria-label="ascii-diagram-preview" className="space-y-3">
           <p className="text-base leading-relaxed text-foreground/80">
-            Here's a simplified view of what happens when you enter a URL. We'll work through this in detail:
+            Here's a simplified view of what happens when you enter a URL. We'll work through this
+            in detail:
           </p>
           <Mermaid
             chart={overview}
