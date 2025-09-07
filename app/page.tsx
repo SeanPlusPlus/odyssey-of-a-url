@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Welcome from '@/components/Welcome'
+import DnsSection from '@/components/DnsSection'
 import Mermaid from '@/components/Mermaid'
 import { gitlabish } from '@/components/mermaidThemes'
 import { overview } from '@/data/overview'
@@ -23,6 +24,9 @@ export default function Home() {
         </div>
 
         <section aria-label="ascii-diagram-preview" className="space-y-3">
+          <p className="text-base leading-relaxed text-foreground/80">
+            Here's a simplified view of what happens when you enter a URL. We'll work through this in detail:
+          </p>
           <Mermaid
             chart={overview}
             theme={gitlabish.theme}
@@ -30,6 +34,8 @@ export default function Home() {
             themeCSS={gitlabish.themeCSS}
           />
         </section>
+
+        <DnsSection />
       </main>
     </div>
   )
