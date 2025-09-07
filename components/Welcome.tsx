@@ -8,12 +8,17 @@ export default function Welcome() {
         diagrams and notes.
       </p>
 
+      <p className="text-base leading-relaxed text-foreground/80">
+        We'll explore this journey through three main areas:
+      </p>
+
       <ul className="list-disc list-inside space-y-1 text-base leading-relaxed text-foreground/80">
-        <li>✨ The Magic of the Internet: DNS, TCP/IP, and TLS connecting your request</li>
+        <li>1. ✨ The Magic of the Internet: DNS, TCP/IP, and TLS connecting your request</li>
         <li>
-          ☁️ Cloud Infrastructure: AWS edge/CDN through HAProxy, Varnish, app, cache, and datastore
+          2. ☁️ Cloud Infrastructure: AWS edge/CDN through HAProxy, Varnish, app, cache, and
+          datastore
         </li>
-        <li>🖥️ How a Browser Works: DOM, CSSOM, render tree, layout, and paint</li>
+        <li>3. 🖥️ How a Browser Works: DOM, CSSOM, render tree, layout, and paint</li>
       </ul>
 
       <p className="text-base leading-relaxed text-foreground/80">
@@ -25,6 +30,15 @@ export default function Welcome() {
           className="font-medium underline hover:no-underline"
         >
           Sean Stephenson
+        </a>
+        .{' '}
+        <a
+          href="https://github.com/SeanPlusPlus/odyssey-of-a-url/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline hover:no-underline"
+        >
+          View source on GitHub
         </a>
         .
       </p>
