@@ -10,6 +10,12 @@ flowchart TD
     E -->|❌ Miss| F[⏭️ Forward to Upstream DNS]
 `
 
+const upstreamDns = `
+flowchart LR
+    A[🏠 Router] --> B[📡 AT&T DNS Infrastructure]
+    B --> C[🔍 What happens next?]
+`
+
 export default function DnsSection() {
   return (
     <section className="space-y-6">
@@ -49,6 +55,26 @@ export default function DnsSection() {
 
         <p className="text-base leading-relaxed text-foreground/80">
           If all local caches miss, then we need to venture out to the internet...
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 2: Upstream DNS Resolution</h3>
+        <p className="text-base leading-relaxed text-foreground/80">
+          When all local caches miss, your router forwards the DNS query to your ISP's DNS
+          infrastructure:
+        </p>
+
+        <Mermaid
+          chart={upstreamDns}
+          theme={gitlabish.theme}
+          themeVariables={gitlabish.themeVariables}
+          themeCSS={gitlabish.themeCSS}
+        />
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          The request has now reached AT&T's DNS servers. Let's explore what happens next in this
+          upstream resolution process...
         </p>
       </div>
     </section>
