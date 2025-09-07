@@ -4,11 +4,10 @@
 
 When Sean says "commit", follow this exact sequence:
 
-1. **Format Code**: Run `npm run format` to apply Prettier formatting
-2. **Lint Check**: Run `npm run lint` to check for ESLint errors
-3. **Fix Issues**: If linting fails, run `npm run lint:fix` to auto-fix issues
-4. **Professional Commit**: Use descriptive, professional commit messages following conventional commit format
-5. **Push**: Push changes to remote repository
+1. **Format and Fix**: Run `npm run fix` to apply Prettier formatting and ESLint auto-fixes
+2. **Lint Check**: Run `npm run lint` to verify no remaining ESLint errors
+3. **Professional Commit**: Use descriptive, professional commit messages following conventional commit format
+4. **Push**: Push changes to remote repository
 
 ## Commit Message Standards
 
