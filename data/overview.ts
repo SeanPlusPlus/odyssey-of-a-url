@@ -2,8 +2,6 @@
 
 export const overview = `
 flowchart LR
-    A[💻 Laptop] --> B[🌐 DNS]
-    B --> A
-    A --> C[☁️ AWS]
-    C --> A
+    A[💻 Laptop] --> B[🌐 Internet] --> C[☁️ Cloud]
+    C --> B --> A
 `
