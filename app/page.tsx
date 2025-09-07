@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Welcome from '@/components/Welcome'
 import Mermaid from '@/components/Mermaid'
 import { gitlabish } from '@/components/mermaidThemes'
-import { odyssey } from '@/data/chart'
+import { overview } from '@/data/overview'
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
 
         <section aria-label="ascii-diagram-preview" className="space-y-3">
           <Mermaid
-            chart={odyssey}
+            chart={overview}
             theme={gitlabish.theme}
             themeVariables={gitlabish.themeVariables}
             themeCSS={gitlabish.themeCSS}
