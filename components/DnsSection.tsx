@@ -107,8 +107,9 @@ export default function DnsSection() {
       <div className="space-y-4">
         <h3 className="text-xl font-semibold">Step 3: DNS Hierarchy Query</h3>
         <p className="text-base leading-relaxed text-foreground/80">
-          When AT&T's DNS servers don't have seanplusplus.com cached, they need to query the DNS
-          hierarchy:
+          AT&T checks its cache for .com TLD server locations (which it has cached), then queries
+          Verisign's .com TLD infrastructure directly. Our request for seanplusplus.com then goes to
+          Verisign's .com TLD servers, waiting to be resolved.
         </p>
 
         <Mermaid
@@ -117,13 +118,6 @@ export default function DnsSection() {
           themeVariables={gitlabish.themeVariables}
           themeCSS={gitlabish.themeCSS}
         />
-
-        <p className="text-base leading-relaxed text-foreground/80">
-          AT&T checks its cache for .com TLD server locations (which it has cached), then queries
-          Verisign's .com TLD infrastructure directly. Our request for seanplusplus.com is now
-          sitting in Verisign's .com TLD servers, waiting to be resolved. Next, we'll explore how
-          the .com TLD handles our domain lookup...
-        </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
           The scale of Verisign's .com TLD infrastructure is staggering - they operate dozens of
@@ -203,6 +197,15 @@ export default function DnsSection() {
         <p className="text-base leading-relaxed text-foreground/80 font-semibold">
           🎉 Your browser finally has an IP address! The DNS odyssey is complete, and now the real
           web request can begin...
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          With the IP address in hand, your browser immediately begins establishing a TCP
+          connection. It creates a socket and sends a SYN (synchronize) packet to the destination IP
+          on port 443 (for HTTPS). This packet first travels to your router, which examines the
+          destination IP, determines it's not on your local network, and forwards it to your ISP.
+          The TCP connection request is now beginning its journey across the internet to reach the
+          web server.
         </p>
 
         <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
