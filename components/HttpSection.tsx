@@ -531,6 +531,13 @@ export default function HttpSection() {
           your browser and Fastly. All future communication will be encrypted with the shared key. 
           Time to send the actual HTTP request for nytimes.com's homepage.
         </p>
+
+        <p className="text-base leading-relaxed text-foreground/80 italic">
+          Next: Your browser sends the HTTP request over the encrypted tunnel. We'll follow the 
+          request through Fastly's edge cache, see if the content is cached or needs to be fetched 
+          from NYTimes' origin servers, and watch the HTML response travel back through the same 
+          network path to your browser.
+        </p>
       </div>
     </section>
   )
