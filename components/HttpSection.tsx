@@ -74,10 +74,21 @@ export default function HttpSection() {
             🔍 How We Got NYTimes' IP Address
           </h4>
           <div className="space-y-2 text-sm text-green-800 dark:text-green-200">
-            <p><strong>dig +short nytimes.com</strong> - Quick DNS lookup, returns just IP addresses</p>
-            <p><strong>nslookup nytimes.com</strong> - Detailed DNS query with server info</p>
-            <p><strong>whois 151.101.65.164</strong> - Shows who owns the IP block (reveals it's Fastly CDN)</p>
-            <p>NYTimes (and other major sites like Reddit, GitHub) use Fastly's 151.101.x.x IP range. AWS CloudFront uses 99.x.x.x ranges. Many sites share CDN infrastructure for global performance!</p>
+            <p>
+              <strong>dig +short nytimes.com</strong> - Quick DNS lookup, returns just IP addresses
+            </p>
+            <p>
+              <strong>nslookup nytimes.com</strong> - Detailed DNS query with server info
+            </p>
+            <p>
+              <strong>whois 151.101.65.164</strong> - Shows who owns the IP block (reveals it's
+              Fastly CDN)
+            </p>
+            <p>
+              NYTimes (and other major sites like Reddit, GitHub) use Fastly's 151.101.x.x IP range.
+              AWS CloudFront uses 99.x.x.x ranges. Many sites share CDN infrastructure for global
+              performance!
+            </p>
           </div>
         </div>
 
@@ -125,8 +136,8 @@ export default function HttpSection() {
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          The router examines the destination IP (151.101.65.164), determines it's not on your
-          local network, and forwards it to your ISP.
+          The router examines the destination IP (151.101.65.164), determines it's not on your local
+          network, and forwards it to your ISP.
         </p>
       </div>
 
@@ -316,17 +327,38 @@ export default function HttpSection() {
             🔍 Client Hello Message Contents
           </h4>
           <div className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
-            <p><strong>TLS Version:</strong> 0x0303 (TLS 1.2), 0x0304 (TLS 1.3)</p>
-            <p><strong>Random:</strong> 32 bytes of cryptographically secure random data</p>
-            <p><strong>Session ID:</strong> 0-32 bytes (often empty for new connections)</p>
-            <p><strong>Cipher Suites:</strong> List like TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256</p>
-            <p><strong>Compression Methods:</strong> Usually just 0x00 (no compression)</p>
-            <p><strong>Extensions:</strong></p>
+            <p>
+              <strong>TLS Version:</strong> 0x0303 (TLS 1.2), 0x0304 (TLS 1.3)
+            </p>
+            <p>
+              <strong>Random:</strong> 32 bytes of cryptographically secure random data
+            </p>
+            <p>
+              <strong>Session ID:</strong> 0-32 bytes (often empty for new connections)
+            </p>
+            <p>
+              <strong>Cipher Suites:</strong> List like TLS_AES_256_GCM_SHA384,
+              TLS_CHACHA20_POLY1305_SHA256
+            </p>
+            <p>
+              <strong>Compression Methods:</strong> Usually just 0x00 (no compression)
+            </p>
+            <p>
+              <strong>Extensions:</strong>
+            </p>
             <ul className="ml-4 space-y-1">
-              <li>• <strong>SNI:</strong> "nytimes.com" (tells server which certificate to use)</li>
-              <li>• <strong>Supported Groups:</strong> x25519, secp256r1 (for key exchange)</li>
-              <li>• <strong>Signature Algorithms:</strong> rsa_pss_rsae_sha256, ecdsa_secp256r1_sha256</li>
-              <li>• <strong>ALPN:</strong> "h2" (HTTP/2), "http/1.1" (protocol negotiation)</li>
+              <li>
+                • <strong>SNI:</strong> "nytimes.com" (tells server which certificate to use)
+              </li>
+              <li>
+                • <strong>Supported Groups:</strong> x25519, secp256r1 (for key exchange)
+              </li>
+              <li>
+                • <strong>Signature Algorithms:</strong> rsa_pss_rsae_sha256, ecdsa_secp256r1_sha256
+              </li>
+              <li>
+                • <strong>ALPN:</strong> "h2" (HTTP/2), "http/1.1" (protocol negotiation)
+              </li>
             </ul>
           </div>
         </div>
