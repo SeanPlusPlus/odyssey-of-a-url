@@ -35,9 +35,9 @@ export default function HttpSection() {
           TCP handshake begins - SYN packet creation
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
-          Let's use reddit.com as our example site to make this concrete. Your browser immediately
+          Let's use nytimes.com as our example site to make this concrete. Your browser immediately
           creates a socket and builds a SYN (synchronize) packet - essentially saying "Hey
-          reddit.com server, I want to establish a connection with you." This isn't human-readable
+          nytimes.com server, I want to establish a connection with you." This isn't human-readable
           text, but structured binary data following the TCP protocol specification.
         </p>
 
@@ -50,14 +50,14 @@ export default function HttpSection() {
             <strong>Source IP:</strong> Your laptop's local IP address (example: 192.168.1.105)
           </li>
           <li>
-            <strong>Destination IP:</strong> Reddit's actual server IP (151.101.193.140)
+            <strong>Destination IP:</strong> NYTimes' actual server IP (151.101.193.140)
           </li>
           <li>
             <strong>Source Port:</strong> Random high port (example: 54321) - your laptop's
             "mailbox" for this connection
           </li>
           <li>
-            <strong>Destination Port:</strong> 443 (HTTPS) - Reddit's server "front door" that's
+            <strong>Destination Port:</strong> 443 (HTTPS) - NYTimes' server "front door" that's
             listening
           </li>
           <li>
@@ -82,7 +82,7 @@ export default function HttpSection() {
           <strong>Important:</strong> When your router (example: 192.168.1.1) receives this packet,
           it performs NAT (Network Address Translation). It replaces your laptop's private IP
           (192.168.1.105) with your router's public IP (example: 73.45.123.89) before forwarding the
-          packet to AT&T. Reddit's server will see the connection coming from 73.45.123.89, not your
+          packet to AT&T. NYTimes' server will see the connection coming from 73.45.123.89, not your
           laptop's private IP.
         </p>
 
@@ -156,7 +156,7 @@ export default function HttpSection() {
           🔢 How IP Addresses Work
         </h4>
         <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
-          Let's break down Reddit's IP address: <strong>151.101.193.140</strong>
+          Let's break down NYTimes' IP address: <strong>151.101.193.140</strong>
         </p>
         <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
           <li>
@@ -231,19 +231,19 @@ export default function HttpSection() {
 
         <p className="text-base leading-relaxed text-foreground/80">
           Your SYN packet has now left AT&T's infrastructure and is traveling through Fastly's CDN
-          network, getting routed toward Reddit's servers.
+          network, getting routed toward NYTimes' servers.
         </p>
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold">Step 4: Reaching Reddit's AWS Infrastructure</h3>
+        <h3 className="text-xl font-semibold">Step 4: Reaching NYTimes' AWS Infrastructure</h3>
         <p className="text-sm italic text-foreground/60 -mt-2">
           TCP handshake continues - SYN arrives at destination
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
-          Your SYN packet finally arrives at Reddit's servers, which for this example we'll assume
+          Your SYN packet finally arrives at NYTimes' servers, which for this example we'll assume
           are hosted on AWS. The packet hits AWS's edge infrastructure first - likely an Application
-          Load Balancer (ALB) or CloudFront CDN endpoint that Reddit has configured to handle
+          Load Balancer (ALB) or CloudFront CDN endpoint that NYTimes has configured to handle
           incoming connections.
         </p>
 
@@ -285,7 +285,7 @@ export default function HttpSection() {
           HTTPS port) - immediately begins the TLS handshake (right after sending the ACK) by
           sending a "Client Hello" message over the established TCP connection. The browser doesn't
           wait for CloudFront to tell it to start TLS; it automatically initiates encryption because
-          the URL was `https://reddit.com`.
+          the URL was `https://nytimes.com`.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
@@ -294,7 +294,7 @@ export default function HttpSection() {
           the Client Hello travels as application data inside the established TCP connection. This
           packet contains the TLS versions your browser supports (TLS 1.2, 1.3, etc.), a list of
           cipher suites (encryption algorithms), a random number for generating encryption keys, and
-          Server Name Indication (SNI) telling CloudFront "I want reddit.com's certificate." At
+          Server Name Indication (SNI) telling CloudFront "I want nytimes.com's certificate." At
           200-500 bytes, it's much larger than the ~60-byte SYN packet because it carries all the
           crypto negotiation information.
         </p>
@@ -311,7 +311,7 @@ export default function HttpSection() {
             <p><strong>Compression Methods:</strong> Usually just 0x00 (no compression)</p>
             <p><strong>Extensions:</strong></p>
             <ul className="ml-4 space-y-1">
-              <li>• <strong>SNI:</strong> "reddit.com" (tells server which certificate to use)</li>
+              <li>• <strong>SNI:</strong> "nytimes.com" (tells server which certificate to use)</li>
               <li>• <strong>Supported Groups:</strong> x25519, secp256r1 (for key exchange)</li>
               <li>• <strong>Signature Algorithms:</strong> rsa_pss_rsae_sha256, ecdsa_secp256r1_sha256</li>
               <li>• <strong>ALPN:</strong> "h2" (HTTP/2), "http/1.1" (protocol negotiation)</li>
@@ -321,9 +321,9 @@ export default function HttpSection() {
 
         <p className="text-base leading-relaxed text-foreground/80 italic">
           Next, we'll explore CloudFront's response with its SSL certificate, the key exchange
-          process, and how your browser validates Reddit's identity. Once the TLS handshake
+          process, and how your browser validates NYTimes' identity. Once the TLS handshake
           completes, we'll follow the actual HTTP request as it travels through AWS infrastructure -
-          from CloudFront's edge cache to Application Load Balancers, through to Reddit's
+          from CloudFront's edge cache to Application Load Balancers, through to NYTimes'
           application servers running on EC2 instances.
         </p>
       </div>
