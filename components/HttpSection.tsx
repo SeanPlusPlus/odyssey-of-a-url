@@ -383,8 +383,8 @@ export default function HttpSection() {
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Your browser offered multiple options in the Client Hello - TLS versions, cipher suites, 
-          key exchange methods. Fastly picks the best ones it supports and tells you: "Let's use 
+          Your browser offered multiple options in the Client Hello - TLS versions, cipher suites 
+          (encryption + authentication algorithms), key exchange methods. Fastly picks the best ones it supports and tells you: "Let's use 
           TLS 1.3 with AES-256 encryption and ECDHE key exchange."
         </p>
 
