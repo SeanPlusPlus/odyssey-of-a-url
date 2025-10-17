@@ -77,7 +77,7 @@ export default function HttpSection() {
             <p><strong>dig +short nytimes.com</strong> - Quick DNS lookup, returns just IP addresses</p>
             <p><strong>nslookup nytimes.com</strong> - Detailed DNS query with server info</p>
             <p><strong>whois 151.101.65.164</strong> - Shows who owns the IP block (reveals it's Fastly CDN)</p>
-            <p>Both NYTimes and Reddit use Fastly's 151.101.x.x IP range. Many sites share CDN infrastructure!</p>
+            <p>NYTimes (and other major sites like Reddit, GitHub) use Fastly's 151.101.x.x IP range. AWS CloudFront uses 99.x.x.x ranges. Many sites share CDN infrastructure for global performance!</p>
           </div>
         </div>
 
