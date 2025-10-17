@@ -377,7 +377,7 @@ export default function HttpSection() {
         </p>
         
         <p className="text-base leading-relaxed text-foreground/80">
-          Fastly receives your Client Hello and responds with its own **Server Hello** message. 
+          Fastly receives your Client Hello and responds with its own <strong>Server Hello</strong> message. 
           This is a single packet (~100 bytes) where Fastly makes decisions about the encryption 
           parameters for your connection.
         </p>
@@ -415,7 +415,7 @@ export default function HttpSection() {
         
         <p className="text-base leading-relaxed text-foreground/80">
           Immediately after the Server Hello, Fastly sends another packet containing NYTimes' 
-          **SSL certificate chain**. This is how Fastly proves "Yes, I'm really authorized to 
+          <strong>SSL certificate chain</strong>. This is how Fastly proves "Yes, I'm really authorized to 
           serve nytimes.com content - here's my proof from a trusted authority."
         </p>
 
@@ -439,9 +439,9 @@ export default function HttpSection() {
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Here's how your browser validates it: The certificate has Let's Encrypt's **digital signature** 
+          Here's how your browser validates it: The certificate has Let's Encrypt's <strong>digital signature</strong> 
           - essentially Let's Encrypt saying "I vouch for this certificate." Your browser uses Let's Encrypt's 
-          **public key** (built into your browser/OS) to verify this signature. If the signature checks out, 
+          <strong>public key</strong> (built into your browser/OS) to verify this signature. If the signature checks out, 
           your browser trusts the certificate. It's like checking a passport stamp with the official seal.
         </p>
 
@@ -460,13 +460,13 @@ export default function HttpSection() {
         </p>
         
         <p className="text-base leading-relaxed text-foreground/80">
-          Certificate validation complete! Now it's **your browser's turn** to respond. Fastly 
+          Certificate validation complete! Now it's <strong>your browser's turn</strong> to respond. Fastly 
           is sitting idle, waiting for your browser to send back its part of the key exchange. 
           Your browser generates its own temporary key pair and sends the public key to Fastly.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Your browser creates a **Client Key Exchange** message containing its ECDHE public key. 
+          Your browser creates a <strong>Client Key Exchange</strong> message containing its ECDHE public key. 
           This is your browser saying "Here's my public key - now we can both calculate the same 
           shared secret without anyone else being able to figure it out."
         </p>
@@ -483,7 +483,7 @@ export default function HttpSection() {
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Behind the scenes, your browser uses **Diffie-Hellman math**: it combines Fastly's 
+          Behind the scenes, your browser uses <strong>Diffie-Hellman math</strong>: it combines Fastly's 
           public key (from the certificate) with your private key to generate a shared secret. 
           Fastly will do the same calculation (your public key + Fastly's private key) and get 
           the exact same result. This shared secret becomes your encryption key.
