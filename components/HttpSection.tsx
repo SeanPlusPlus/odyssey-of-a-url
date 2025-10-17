@@ -307,6 +307,31 @@ export default function HttpSection() {
           application servers running on EC2 instances.
         </p>
       </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 4: TLS Handshake Begins</h3>
+        <p className="text-sm italic text-foreground/60 -mt-2">
+          Immediate security negotiation after TCP connection
+        </p>
+        
+        <p className="text-base leading-relaxed text-foreground/80">
+          The moment your browser sends that final ACK packet, it immediately initiates the TLS handshake. 
+          There's no pause - your browser knows it connected to port 443 (HTTPS) and automatically begins 
+          security negotiation by sending a <strong>Client Hello</strong> message.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          This Client Hello contains your browser's security capabilities: supported TLS versions 
+          (1.2, 1.3), cipher suites for encryption, a random number for key generation, and 
+          Server Name Indication (SNI) telling the server "I want reddit.com's certificate."
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          The server responds with its own Hello, certificate chain, and chosen encryption parameters. 
+          After key exchange and certificate validation, both sides confirm the secure channel is ready. 
+          Only then can your browser send the actual HTTP request for reddit.com's homepage.
+        </p>
+      </div>
     </section>
   )
 }
