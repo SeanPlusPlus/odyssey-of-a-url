@@ -369,6 +369,43 @@ export default function HttpSection() {
           from Fastly's edge cache (or CloudFront, Akamai) to NYTimes' origin servers.
         </p>
       </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 6: Server Hello Response</h3>
+        <p className="text-sm italic text-foreground/60 -mt-2">
+          Fastly's first response - choosing security parameters
+        </p>
+        
+        <p className="text-base leading-relaxed text-foreground/80">
+          Fastly receives your Client Hello and responds with its own **Server Hello** message. 
+          This is a single packet (~100 bytes) where Fastly makes decisions about the encryption 
+          parameters for your connection.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          Your browser offered multiple options in the Client Hello - TLS versions, cipher suites, 
+          key exchange methods. Fastly picks the best ones it supports and tells you: "Let's use 
+          TLS 1.3 with AES-256 encryption and ECDHE key exchange."
+        </p>
+
+        <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+          <h4 className="font-semibold text-purple-900 dark:text-purple-100 mb-3">
+            📦 Server Hello Contents
+          </h4>
+          <div className="space-y-2 text-sm text-purple-800 dark:text-purple-200">
+            <p><strong>TLS Version:</strong> 0x0304 (TLS 1.3) - chosen from your offered versions</p>
+            <p><strong>Cipher Suite:</strong> TLS_AES_256_GCM_SHA384 - chosen from your list</p>
+            <p><strong>Server Random:</strong> 32 bytes of random data (for key generation)</p>
+            <p><strong>Session ID:</strong> Identifier for this specific connection</p>
+          </div>
+        </div>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          The Server Hello travels back through the same network path to your browser. Now both 
+          sides have agreed on the encryption method, but Fastly still needs to prove its identity 
+          with certificates and establish the actual encryption keys.
+        </p>
+      </div>
     </section>
   )
 }
