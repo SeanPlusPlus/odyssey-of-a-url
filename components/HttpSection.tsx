@@ -299,6 +299,26 @@ export default function HttpSection() {
           crypto negotiation information.
         </p>
 
+        <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">
+            🔍 Client Hello Message Contents
+          </h4>
+          <div className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+            <p><strong>TLS Version:</strong> 0x0303 (TLS 1.2), 0x0304 (TLS 1.3)</p>
+            <p><strong>Random:</strong> 32 bytes of cryptographically secure random data</p>
+            <p><strong>Session ID:</strong> 0-32 bytes (often empty for new connections)</p>
+            <p><strong>Cipher Suites:</strong> List like TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256</p>
+            <p><strong>Compression Methods:</strong> Usually just 0x00 (no compression)</p>
+            <p><strong>Extensions:</strong></p>
+            <ul className="ml-4 space-y-1">
+              <li>• <strong>SNI:</strong> "reddit.com" (tells server which certificate to use)</li>
+              <li>• <strong>Supported Groups:</strong> x25519, secp256r1 (for key exchange)</li>
+              <li>• <strong>Signature Algorithms:</strong> rsa_pss_rsae_sha256, ecdsa_secp256r1_sha256</li>
+              <li>• <strong>ALPN:</strong> "h2" (HTTP/2), "http/1.1" (protocol negotiation)</li>
+            </ul>
+          </div>
+        </div>
+
         <p className="text-base leading-relaxed text-foreground/80 italic">
           Next, we'll explore CloudFront's response with its SSL certificate, the key exchange
           process, and how your browser validates Reddit's identity. Once the TLS handshake
