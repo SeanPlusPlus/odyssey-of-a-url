@@ -265,9 +265,8 @@ export default function HttpSection() {
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
           Your SYN packet finally arrives at NYTimes' servers, which for this example we'll assume
-          are hosted on AWS. The packet hits AWS's edge infrastructure first - likely an Application
-          Load Balancer (ALB) or CloudFront CDN endpoint that NYTimes has configured to handle
-          incoming connections.
+          are hosted on AWS. The packet hits Fastly's edge infrastructure first (or CloudFront, Akamai) - 
+          a CDN endpoint that NYTimes has configured to handle incoming connections.
         </p>
 
         <Mermaid
@@ -278,10 +277,10 @@ export default function HttpSection() {
         />
 
         <p className="text-base leading-relaxed text-foreground/80">
-          CloudFront receives your SYN packet and immediately responds with a SYN-ACK packet back to
-          your browser. This packet contains CloudFront's acknowledgment of your connection request
+          Fastly (or CloudFront, Akamai) receives your SYN packet and immediately responds with a SYN-ACK packet back to
+          your browser. This packet contains Fastly's acknowledgment of your connection request
           plus its own sequence number for tracking data flow. The SYN-ACK travels back through the
-          entire network path we just traced: CloudFront → Fastly → Level3 → Cogent → Internet
+          entire network path we just traced: Fastly → Level3 → Cogent → Internet
           Exchange → AT&T Backbone → AT&T Regional PoP → AT&T Local → Your Router → Your Laptop.
         </p>
 
@@ -289,11 +288,11 @@ export default function HttpSection() {
           <strong>Important:</strong> When the SYN-ACK reaches your router, it performs reverse NAT
           - changing the destination from your router's public IP (73.45.123.89:54321) back to your
           laptop's private IP (192.168.1.105:54321) before forwarding it locally. Your browser
-          receives the SYN-ACK and sends a final ACK packet back to CloudFront. This ACK travels the
+          receives the SYN-ACK and sends a final ACK packet back to Fastly. This ACK travels the
           exact same network path as the original SYN: Your Laptop → Router (NAT translation) → AT&T
-          Local → AT&T Regional PoP → AT&T Backbone → Internet Exchange → Cogent → Level3 → Fastly →
-          CloudFront. The TCP three-way handshake is now complete, and you have an established TCP
-          connection to AWS!
+          Local → AT&T Regional PoP → AT&T Backbone → Internet Exchange → Cogent → Level3 → 
+          Fastly. The TCP three-way handshake is now complete, and you have an established TCP
+          connection to Fastly's edge server!
         </p>
       </div>
 
@@ -303,11 +302,11 @@ export default function HttpSection() {
           TLS encryption negotiation starts over established TCP connection
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
-          When the ACK packet arrives at CloudFront, the server simply acknowledges the completed
+          When the ACK packet arrives at Fastly (or CloudFront, Akamai), the server simply acknowledges the completed
           TCP connection and waits. Meanwhile, your browser - knowing it connected to port 443 (the
           HTTPS port) - immediately begins the TLS handshake (right after sending the ACK) by
           sending a "Client Hello" message over the established TCP connection. The browser doesn't
-          wait for CloudFront to tell it to start TLS; it automatically initiates encryption because
+          wait for Fastly to tell it to start TLS; it automatically initiates encryption because
           the URL was `https://nytimes.com`.
         </p>
 
@@ -317,7 +316,7 @@ export default function HttpSection() {
           the Client Hello travels as application data inside the established TCP connection. This
           packet contains the TLS versions your browser supports (TLS 1.2, 1.3, etc.), a list of
           cipher suites (encryption algorithms), a random number for generating encryption keys, and
-          Server Name Indication (SNI) telling CloudFront "I want nytimes.com's certificate." At
+          Server Name Indication (SNI) telling Fastly "I want nytimes.com's certificate." At
           200-500 bytes, it's much larger than the ~60-byte SYN packet because it carries all the
           crypto negotiation information.
         </p>
@@ -364,11 +363,10 @@ export default function HttpSection() {
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80 italic">
-          Next, we'll explore CloudFront's response with its SSL certificate, the key exchange
+          Next, we'll explore Fastly's response with its SSL certificate, the key exchange
           process, and how your browser validates NYTimes' identity. Once the TLS handshake
-          completes, we'll follow the actual HTTP request as it travels through AWS infrastructure -
-          from CloudFront's edge cache to Application Load Balancers, through to NYTimes'
-          application servers running on EC2 instances.
+          completes, we'll follow the actual HTTP request as it travels through CDN infrastructure -
+          from Fastly's edge cache (or CloudFront, Akamai) to NYTimes' origin servers.
         </p>
       </div>
     </section>
