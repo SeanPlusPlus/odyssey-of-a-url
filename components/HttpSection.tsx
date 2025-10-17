@@ -11,7 +11,7 @@ flowchart TD
     F --> G[🚀 Cogent<br/>Tier 1 ISP]
     G --> H[🚀 Level3/Lumen<br/>Tier 1 ISP]
     H --> I[⚡ Fastly CDN<br/>Network]
-    I --> J[☁️ AWS Load Balancer<br/>151.101.193.140]
+    I --> J[☁️ AWS Load Balancer<br/>151.101.65.164]
     
     %% Position nodes in two rows
     A ~~~ B ~~~ C ~~~ D ~~~ E
@@ -50,7 +50,7 @@ export default function HttpSection() {
             <strong>Source IP:</strong> Your laptop's local IP address (example: 192.168.1.105)
           </li>
           <li>
-            <strong>Destination IP:</strong> NYTimes' actual server IP (151.101.193.140)
+            <strong>Destination IP:</strong> NYTimes' actual server IP (151.101.65.164)
           </li>
           <li>
             <strong>Source Port:</strong> Random high port (example: 54321) - your laptop's
@@ -69,8 +69,19 @@ export default function HttpSection() {
           </li>
         </ul>
 
+        <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4">
+          <h4 className="font-semibold text-green-900 dark:text-green-100 mb-3">
+            🔍 How We Got NYTimes' IP Address
+          </h4>
+          <div className="space-y-2 text-sm text-green-800 dark:text-green-200">
+            <p><strong>dig +short nytimes.com</strong> - Quick DNS lookup, returns just IP addresses</p>
+            <p><strong>nslookup nytimes.com</strong> - Detailed DNS query with server info</p>
+            <p>Both commands query DNS servers to resolve the domain name to IP addresses. NYTimes uses multiple IPs for load balancing - we're using the first one: 151.101.65.164</p>
+          </div>
+        </div>
+
         <p className="text-base leading-relaxed text-foreground/80">
-          The browser makes a system call to the OS saying "connect to 151.101.193.140:443." The OS
+          The browser makes a system call to the OS saying "connect to 151.101.65.164:443." The OS
           kernel networking stack then handles everything: it creates the TCP header (about 20
           bytes), wraps it in an IP header (another ~20 bytes), checks the routing table to
           determine the next hop, and hands the packet to the network interface driver. The driver
@@ -113,7 +124,7 @@ export default function HttpSection() {
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          The router examines the destination IP (151.101.193.140), determines it's not on your
+          The router examines the destination IP (151.101.65.164), determines it's not on your
           local network, and forwards it to your ISP.
         </p>
       </div>
@@ -140,9 +151,9 @@ export default function HttpSection() {
         <p className="text-base leading-relaxed text-foreground/80">
           From the regional PoP, your packet jumps onto AT&T's backbone network - high-capacity
           fiber links between major cities. Each router along this path examines the destination IP
-          address (151.101.193.140) and consults its routing table to determine the best path
+          address (151.101.65.164) and consults its routing table to determine the best path
           forward. They don't care about domain names at all - they're purely focused on "I have a
-          packet for 151.101.193.140, which direction should I send it?"
+          packet for 151.101.65.164, which direction should I send it?"
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
@@ -156,7 +167,7 @@ export default function HttpSection() {
           🔢 How IP Addresses Work
         </h4>
         <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
-          Let's break down NYTimes' IP address: <strong>151.101.193.140</strong>
+          Let's break down NYTimes' IP address: <strong>151.101.65.164</strong>
         </p>
         <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
           <li>
@@ -192,7 +203,7 @@ export default function HttpSection() {
         <p className="text-base leading-relaxed text-foreground/80">
           Your packet travels through AT&T's backbone network until it reaches a major internet
           exchange - let's say one in Dallas or Chicago. Here, AT&T's router examines the
-          destination IP (151.101.193.140) and consults its routing table: "This IP belongs to
+          destination IP (151.101.65.164) and consults its routing table: "This IP belongs to
           Fastly's network, and we have a direct connection to Fastly right here in this facility."
         </p>
 
