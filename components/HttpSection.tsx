@@ -439,6 +439,13 @@ export default function HttpSection() {
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
+          Here's how your browser validates it: The certificate has Let's Encrypt's **digital signature** 
+          - essentially Let's Encrypt saying "I vouch for this certificate." Your browser uses Let's Encrypt's 
+          **public key** (built into your browser/OS) to verify this signature. If the signature checks out, 
+          your browser trusts the certificate. It's like checking a passport stamp with the official seal.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
           This is the crucial security moment - your browser is verifying that you're really 
           talking to NYTimes and not some imposter. The certificate is like a digital passport 
           that proves identity through a chain of trust back to root Certificate Authorities 
