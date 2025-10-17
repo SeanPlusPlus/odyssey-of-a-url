@@ -265,8 +265,8 @@ export default function HttpSection() {
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
           Your SYN packet finally arrives at NYTimes' servers, which for this example we'll assume
-          are hosted on AWS. The packet hits Fastly's edge infrastructure first (or CloudFront, Akamai) - 
-          a CDN endpoint that NYTimes has configured to handle incoming connections.
+          are hosted on AWS. The packet hits Fastly's edge infrastructure first (or CloudFront,
+          Akamai) - a CDN endpoint that NYTimes has configured to handle incoming connections.
         </p>
 
         <Mermaid
@@ -277,11 +277,12 @@ export default function HttpSection() {
         />
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Fastly (or CloudFront, Akamai) receives your SYN packet and immediately responds with a SYN-ACK packet back to
-          your browser. This packet contains Fastly's acknowledgment of your connection request
-          plus its own sequence number for tracking data flow. The SYN-ACK travels back through the
-          entire network path we just traced: Fastly → Level3 → Cogent → Internet
-          Exchange → AT&T Backbone → AT&T Regional PoP → AT&T Local → Your Router → Your Laptop.
+          Fastly (or CloudFront, Akamai) receives your SYN packet and immediately responds with a
+          SYN-ACK packet back to your browser. This packet contains Fastly's acknowledgment of your
+          connection request plus its own sequence number for tracking data flow. The SYN-ACK
+          travels back through the entire network path we just traced: Fastly → Level3 → Cogent →
+          Internet Exchange → AT&T Backbone → AT&T Regional PoP → AT&T Local → Your Router → Your
+          Laptop.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
@@ -290,9 +291,9 @@ export default function HttpSection() {
           laptop's private IP (192.168.1.105:54321) before forwarding it locally. Your browser
           receives the SYN-ACK and sends a final ACK packet back to Fastly. This ACK travels the
           exact same network path as the original SYN: Your Laptop → Router (NAT translation) → AT&T
-          Local → AT&T Regional PoP → AT&T Backbone → Internet Exchange → Cogent → Level3 → 
-          Fastly. The TCP three-way handshake is now complete, and you have an established TCP
-          connection to Fastly's edge server!
+          Local → AT&T Regional PoP → AT&T Backbone → Internet Exchange → Cogent → Level3 → Fastly.
+          The TCP three-way handshake is now complete, and you have an established TCP connection to
+          Fastly's edge server!
         </p>
       </div>
 
@@ -302,12 +303,12 @@ export default function HttpSection() {
           TLS encryption negotiation starts over established TCP connection
         </p>
         <p className="text-base leading-relaxed text-foreground/80">
-          When the ACK packet arrives at Fastly (or CloudFront, Akamai), the server simply acknowledges the completed
-          TCP connection and waits. Meanwhile, your browser - knowing it connected to port 443 (the
-          HTTPS port) - immediately begins the TLS handshake (right after sending the ACK) by
-          sending a "Client Hello" message over the established TCP connection. The browser doesn't
-          wait for Fastly to tell it to start TLS; it automatically initiates encryption because
-          the URL was `https://nytimes.com`.
+          When the ACK packet arrives at Fastly (or CloudFront, Akamai), the server simply
+          acknowledges the completed TCP connection and waits. Meanwhile, your browser - knowing it
+          connected to port 443 (the HTTPS port) - immediately begins the TLS handshake (right after
+          sending the ACK) by sending a "Client Hello" message over the established TCP connection.
+          The browser doesn't wait for Fastly to tell it to start TLS; it automatically initiates
+          encryption because the URL was `https://nytimes.com`.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
@@ -316,9 +317,9 @@ export default function HttpSection() {
           the Client Hello travels as application data inside the established TCP connection. This
           packet contains the TLS versions your browser supports (TLS 1.2, 1.3, etc.), a list of
           cipher suites (encryption algorithms), a random number for generating encryption keys, and
-          Server Name Indication (SNI) telling Fastly "I want nytimes.com's certificate." At
-          200-500 bytes, it's much larger than the ~60-byte SYN packet because it carries all the
-          crypto negotiation information.
+          Server Name Indication (SNI) telling Fastly "I want nytimes.com's certificate." At 200-500
+          bytes, it's much larger than the ~60-byte SYN packet because it carries all the crypto
+          negotiation information.
         </p>
 
         <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
@@ -363,10 +364,10 @@ export default function HttpSection() {
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80 italic">
-          Next, we'll explore Fastly's response with its SSL certificate, the key exchange
-          process, and how your browser validates NYTimes' identity. Once the TLS handshake
-          completes, we'll follow the actual HTTP request as it travels through CDN infrastructure -
-          from Fastly's edge cache (or CloudFront, Akamai) to NYTimes' origin servers.
+          Next, we'll explore Fastly's response with its SSL certificate, the key exchange process,
+          and how your browser validates NYTimes' identity. Once the TLS handshake completes, we'll
+          follow the actual HTTP request as it travels through CDN infrastructure - from Fastly's
+          edge cache (or CloudFront, Akamai) to NYTimes' origin servers.
         </p>
       </div>
 
@@ -375,17 +376,18 @@ export default function HttpSection() {
         <p className="text-sm italic text-foreground/60 -mt-2">
           Fastly's first response - choosing security parameters
         </p>
-        
+
         <p className="text-base leading-relaxed text-foreground/80">
-          Fastly receives your Client Hello and responds with its own <strong>Server Hello</strong> message. 
-          This is a single packet (~100 bytes) where Fastly makes decisions about the encryption 
-          parameters for your connection.
+          Fastly receives your Client Hello and responds with its own <strong>Server Hello</strong>{' '}
+          message. This is a single packet (~100 bytes) where Fastly makes decisions about the
+          encryption parameters for your connection.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Your browser offered multiple options in the Client Hello - TLS versions, cipher suites 
-          (encryption + authentication algorithms), key exchange methods. Fastly picks the best ones it supports and tells you: "Let's use 
-          TLS 1.3 with AES-256 encryption and ECDHE key exchange."
+          Your browser offered multiple options in the Client Hello - TLS versions, cipher suites
+          (encryption + authentication algorithms), key exchange methods. Fastly picks the best ones
+          it supports and tells you: "Let's use TLS 1.3 with AES-256 encryption and ECDHE key
+          exchange."
         </p>
 
         <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
@@ -393,16 +395,24 @@ export default function HttpSection() {
             📦 Server Hello Contents
           </h4>
           <div className="space-y-2 text-sm text-purple-800 dark:text-purple-200">
-            <p><strong>TLS Version:</strong> 0x0304 (TLS 1.3) - chosen from your offered versions</p>
-            <p><strong>Cipher Suite:</strong> TLS_AES_256_GCM_SHA384 - chosen from your list</p>
-            <p><strong>Server Random:</strong> 32 bytes of random data (for key generation)</p>
-            <p><strong>Session ID:</strong> Identifier for this specific connection</p>
+            <p>
+              <strong>TLS Version:</strong> 0x0304 (TLS 1.3) - chosen from your offered versions
+            </p>
+            <p>
+              <strong>Cipher Suite:</strong> TLS_AES_256_GCM_SHA384 - chosen from your list
+            </p>
+            <p>
+              <strong>Server Random:</strong> 32 bytes of random data (for key generation)
+            </p>
+            <p>
+              <strong>Session ID:</strong> Identifier for this specific connection
+            </p>
           </div>
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          The Server Hello travels back through the same network path to your browser. Now both 
-          sides have agreed on the encryption method, but Fastly still needs to prove its identity 
+          The Server Hello travels back through the same network path to your browser. Now both
+          sides have agreed on the encryption method, but Fastly still needs to prove its identity
           with certificates and establish the actual encryption keys.
         </p>
       </div>
@@ -412,11 +422,11 @@ export default function HttpSection() {
         <p className="text-sm italic text-foreground/60 -mt-2">
           Fastly proves it's authorized to serve nytimes.com
         </p>
-        
+
         <p className="text-base leading-relaxed text-foreground/80">
-          Immediately after the Server Hello, Fastly sends another packet containing NYTimes' 
-          <strong>SSL certificate chain</strong>. This is how Fastly proves "Yes, I'm really authorized to 
-          serve nytimes.com content - here's my proof from a trusted authority."
+          Immediately after the Server Hello, Fastly sends another packet containing NYTimes'
+          <strong>SSL certificate chain</strong>. This is how Fastly proves "Yes, I'm really
+          authorized to serve nytimes.com content - here's my proof from a trusted authority."
         </p>
 
         <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
@@ -424,32 +434,45 @@ export default function HttpSection() {
             🔐 Certificate Chain Contents (~3-5KB)
           </h4>
           <div className="space-y-2 text-sm text-orange-800 dark:text-orange-200">
-            <p><strong>NYTimes' Certificate:</strong> "This cert is valid for *.nytimes.com, nytimes.com"</p>
-            <p><strong>Issued by:</strong> Let's Encrypt (or DigiCert, Cloudflare, etc.)</p>
-            <p><strong>Contains:</strong> Fastly's public key for this domain</p>
-            <p><strong>Valid dates:</strong> Not before/after timestamps</p>
-            <p><strong>Digital signature:</strong> Let's Encrypt's cryptographic seal of approval</p>
+            <p>
+              <strong>NYTimes' Certificate:</strong> "This cert is valid for *.nytimes.com,
+              nytimes.com"
+            </p>
+            <p>
+              <strong>Issued by:</strong> Let's Encrypt (or DigiCert, Cloudflare, etc.)
+            </p>
+            <p>
+              <strong>Contains:</strong> Fastly's public key for this domain
+            </p>
+            <p>
+              <strong>Valid dates:</strong> Not before/after timestamps
+            </p>
+            <p>
+              <strong>Digital signature:</strong> Let's Encrypt's cryptographic seal of approval
+            </p>
           </div>
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Your browser immediately starts validating this certificate. It checks: "Is this 
-          certificate really from Let's Encrypt? Is Let's Encrypt in my list of trusted 
-          Certificate Authorities? Does the domain match nytimes.com? Has it expired?"
+          Your browser immediately starts validating this certificate. It checks: "Is this
+          certificate really from Let's Encrypt? Is Let's Encrypt in my list of trusted Certificate
+          Authorities? Does the domain match nytimes.com? Has it expired?"
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Here's how your browser validates it: The certificate has Let's Encrypt's <strong>digital signature</strong> 
-          - essentially Let's Encrypt saying "I vouch for this certificate." Your browser uses Let's Encrypt's 
-          <strong>public key</strong> (built into your browser/OS) to verify this signature. If the signature checks out, 
-          your browser trusts the certificate. It's like checking a passport stamp with the official seal.
+          Here's how your browser validates it: The certificate has Let's Encrypt's{' '}
+          <strong>digital signature</strong>- essentially Let's Encrypt saying "I vouch for this
+          certificate." Your browser uses Let's Encrypt's
+          <strong>public key</strong> (built into your browser/OS) to verify this signature. If the
+          signature checks out, your browser trusts the certificate. It's like checking a passport
+          stamp with the official seal.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          This is the crucial security moment - your browser is verifying that you're really 
-          talking to NYTimes and not some imposter. The certificate is like a digital passport 
-          that proves identity through a chain of trust back to root Certificate Authorities 
-          built into your browser.
+          This is the crucial security moment - your browser is verifying that you're really talking
+          to NYTimes and not some imposter. The certificate is like a digital passport that proves
+          identity through a chain of trust back to root Certificate Authorities built into your
+          browser.
         </p>
       </div>
 
@@ -458,17 +481,18 @@ export default function HttpSection() {
         <p className="text-sm italic text-foreground/60 -mt-2">
           Your browser sends its part of the encryption key generation
         </p>
-        
+
         <p className="text-base leading-relaxed text-foreground/80">
-          Certificate validation complete! Now it's <strong>your browser's turn</strong> to respond. Fastly 
-          is sitting idle, waiting for your browser to send back its part of the key exchange. 
-          Your browser generates its own temporary key pair and sends the public key to Fastly.
+          Certificate validation complete! Now it's <strong>your browser's turn</strong> to respond.
+          Fastly is sitting idle, waiting for your browser to send back its part of the key
+          exchange. Your browser generates its own temporary key pair and sends the public key to
+          Fastly.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Your browser creates a <strong>Client Key Exchange</strong> message containing its ECDHE public key. 
-          This is your browser saying "Here's my public key - now we can both calculate the same 
-          shared secret without anyone else being able to figure it out."
+          Your browser creates a <strong>Client Key Exchange</strong> message containing its ECDHE
+          public key. This is your browser saying "Here's my public key - now we can both calculate
+          the same shared secret without anyone else being able to figure it out."
         </p>
 
         <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
@@ -476,22 +500,28 @@ export default function HttpSection() {
             🔑 Client Key Exchange Contents (~100 bytes)
           </h4>
           <div className="space-y-2 text-sm text-teal-800 dark:text-teal-200">
-            <p><strong>Your Public Key:</strong> Generated using x25519 curve (same as Fastly chose)</p>
-            <p><strong>Key Exchange Method:</strong> ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)</p>
-            <p><strong>Purpose:</strong> Both sides can now derive identical encryption keys</p>
+            <p>
+              <strong>Your Public Key:</strong> Generated using x25519 curve (same as Fastly chose)
+            </p>
+            <p>
+              <strong>Key Exchange Method:</strong> ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)
+            </p>
+            <p>
+              <strong>Purpose:</strong> Both sides can now derive identical encryption keys
+            </p>
           </div>
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Behind the scenes, your browser uses <strong>Diffie-Hellman math</strong>: it combines Fastly's 
-          public key (from the certificate) with your private key to generate a shared secret. 
-          Fastly will do the same calculation (your public key + Fastly's private key) and get 
-          the exact same result. This shared secret becomes your encryption key.
+          Behind the scenes, your browser uses <strong>Diffie-Hellman math</strong>: it combines
+          Fastly's public key (from the certificate) with your private key to generate a shared
+          secret. Fastly will do the same calculation (your public key + Fastly's private key) and
+          get the exact same result. This shared secret becomes your encryption key.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          The beauty: even if someone intercepts both public keys, they can't calculate the 
-          shared secret without the private keys (which never leave your browser or Fastly's server).
+          The beauty: even if someone intercepts both public keys, they can't calculate the shared
+          secret without the private keys (which never leave your browser or Fastly's server).
         </p>
       </div>
 
@@ -500,12 +530,12 @@ export default function HttpSection() {
         <p className="text-sm italic text-foreground/60 -mt-2">
           Both sides test encryption with "Finished" messages
         </p>
-        
+
         <p className="text-base leading-relaxed text-foreground/80">
-          Now both sides have calculated the same shared encryption key, but they need to prove 
-          it works. Your browser immediately sends an encrypted <strong>Finished</strong> message 
-          right after the Client Key Exchange - essentially saying "Here's an encrypted test message 
-          to prove I can encrypt correctly."
+          Now both sides have calculated the same shared encryption key, but they need to prove it
+          works. Your browser immediately sends an encrypted <strong>Finished</strong> message right
+          after the Client Key Exchange - essentially saying "Here's an encrypted test message to
+          prove I can encrypt correctly."
         </p>
 
         <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 rounded-lg p-4">
@@ -513,29 +543,33 @@ export default function HttpSection() {
             ✅ Finished Message Exchange
           </h4>
           <div className="space-y-2 text-sm text-indigo-800 dark:text-indigo-200">
-            <p><strong>1. Browser → Fastly:</strong> Encrypted "Finished" (~36 bytes)</p>
+            <p>
+              <strong>1. Browser → Fastly:</strong> Encrypted "Finished" (~36 bytes)
+            </p>
             <p>Contains: Hash of all previous handshake messages, encrypted with new key</p>
-            <p><strong>2. Fastly → Browser:</strong> Encrypted "Finished" response</p>
+            <p>
+              <strong>2. Fastly → Browser:</strong> Encrypted "Finished" response
+            </p>
             <p>Contains: Fastly's hash of handshake messages, proving it can decrypt + encrypt</p>
           </div>
         </div>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          Fastly receives your encrypted Finished message, decrypts it successfully (proving the 
-          shared key works), and sends back its own encrypted Finished message. Your browser 
+          Fastly receives your encrypted Finished message, decrypts it successfully (proving the
+          shared key works), and sends back its own encrypted Finished message. Your browser
           decrypts Fastly's response - success! Both sides can now encrypt and decrypt correctly.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80">
-          <strong>TLS handshake complete!</strong> You now have a secure, encrypted tunnel between 
-          your browser and Fastly. All future communication will be encrypted with the shared key. 
+          <strong>TLS handshake complete!</strong> You now have a secure, encrypted tunnel between
+          your browser and Fastly. All future communication will be encrypted with the shared key.
           Time to send the actual HTTP request for nytimes.com's homepage.
         </p>
 
         <p className="text-base leading-relaxed text-foreground/80 italic">
-          Next: Your browser sends the HTTP request over the encrypted tunnel. We'll follow the 
-          request through Fastly's edge cache, see if the content is cached or needs to be fetched 
-          from NYTimes' origin servers, and watch the HTML response travel back through the same 
+          Next: Your browser sends the HTTP request over the encrypted tunnel. We'll follow the
+          request through Fastly's edge cache, see if the content is cached or needs to be fetched
+          from NYTimes' origin servers, and watch the HTML response travel back through the same
           network path to your browser.
         </p>
       </div>
