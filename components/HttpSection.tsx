@@ -11,7 +11,7 @@ flowchart TD
     F --> G[🚀 Cogent<br/>Tier 1 ISP]
     G --> H[🚀 Level3/Lumen<br/>Tier 1 ISP]
     H --> I[⚡ Fastly CDN<br/>Network]
-    I --> J[☁️ AWS Load Balancer<br/>151.101.65.164]
+    I --> J[⚡ Fastly CDN Server<br/>151.101.65.164]
     
     %% Position nodes in two rows
     A ~~~ B ~~~ C ~~~ D ~~~ E
@@ -189,10 +189,10 @@ export default function HttpSection() {
             <strong>101:</strong> Subnet - further divides Fastly's network
           </li>
           <li>
-            <strong>193:</strong> Host range - specific group of servers
+            <strong>65:</strong> Host range - specific group of servers
           </li>
           <li>
-            <strong>140:</strong> Individual host - the exact server responding
+            <strong>164:</strong> Individual host - the exact server responding
           </li>
         </ul>
         <p className="text-sm text-blue-800 dark:text-blue-200 mt-2">
