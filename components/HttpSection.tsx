@@ -76,7 +76,8 @@ export default function HttpSection() {
           <div className="space-y-2 text-sm text-green-800 dark:text-green-200">
             <p><strong>dig +short nytimes.com</strong> - Quick DNS lookup, returns just IP addresses</p>
             <p><strong>nslookup nytimes.com</strong> - Detailed DNS query with server info</p>
-            <p>Both commands query DNS servers to resolve the domain name to IP addresses. NYTimes uses multiple IPs for load balancing - we're using the first one: 151.101.65.164</p>
+            <p><strong>whois 151.101.65.164</strong> - Shows who owns the IP block (reveals it's Fastly CDN)</p>
+            <p>Both NYTimes and Reddit use Fastly's 151.101.x.x IP range. Many sites share CDN infrastructure!</p>
           </div>
         </div>
 
