@@ -494,6 +494,44 @@ export default function HttpSection() {
           shared secret without the private keys (which never leave your browser or Fastly's server).
         </p>
       </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 9: Finished Messages</h3>
+        <p className="text-sm italic text-foreground/60 -mt-2">
+          Both sides test encryption with "Finished" messages
+        </p>
+        
+        <p className="text-base leading-relaxed text-foreground/80">
+          Now both sides have calculated the same shared encryption key, but they need to prove 
+          it works. Your browser immediately sends an encrypted <strong>Finished</strong> message 
+          right after the Client Key Exchange - essentially saying "Here's an encrypted test message 
+          to prove I can encrypt correctly."
+        </p>
+
+        <div className="bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800 rounded-lg p-4">
+          <h4 className="font-semibold text-indigo-900 dark:text-indigo-100 mb-3">
+            ✅ Finished Message Exchange
+          </h4>
+          <div className="space-y-2 text-sm text-indigo-800 dark:text-indigo-200">
+            <p><strong>1. Browser → Fastly:</strong> Encrypted "Finished" (~36 bytes)</p>
+            <p>Contains: Hash of all previous handshake messages, encrypted with new key</p>
+            <p><strong>2. Fastly → Browser:</strong> Encrypted "Finished" response</p>
+            <p>Contains: Fastly's hash of handshake messages, proving it can decrypt + encrypt</p>
+          </div>
+        </div>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          Fastly receives your encrypted Finished message, decrypts it successfully (proving the 
+          shared key works), and sends back its own encrypted Finished message. Your browser 
+          decrypts Fastly's response - success! Both sides can now encrypt and decrypt correctly.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          <strong>TLS handshake complete!</strong> You now have a secure, encrypted tunnel between 
+          your browser and Fastly. All future communication will be encrypted with the shared key. 
+          Time to send the actual HTTP request for nytimes.com's homepage.
+        </p>
+      </div>
     </section>
   )
 }
