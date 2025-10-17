@@ -406,6 +406,45 @@ export default function HttpSection() {
           with certificates and establish the actual encryption keys.
         </p>
       </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 7: Certificate Chain</h3>
+        <p className="text-sm italic text-foreground/60 -mt-2">
+          Fastly proves it's authorized to serve nytimes.com
+        </p>
+        
+        <p className="text-base leading-relaxed text-foreground/80">
+          Immediately after the Server Hello, Fastly sends another packet containing NYTimes' 
+          **SSL certificate chain**. This is how Fastly proves "Yes, I'm really authorized to 
+          serve nytimes.com content - here's my proof from a trusted authority."
+        </p>
+
+        <div className="bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
+          <h4 className="font-semibold text-orange-900 dark:text-orange-100 mb-3">
+            🔐 Certificate Chain Contents (~3-5KB)
+          </h4>
+          <div className="space-y-2 text-sm text-orange-800 dark:text-orange-200">
+            <p><strong>NYTimes' Certificate:</strong> "This cert is valid for *.nytimes.com, nytimes.com"</p>
+            <p><strong>Issued by:</strong> Let's Encrypt (or DigiCert, Cloudflare, etc.)</p>
+            <p><strong>Contains:</strong> Fastly's public key for this domain</p>
+            <p><strong>Valid dates:</strong> Not before/after timestamps</p>
+            <p><strong>Digital signature:</strong> Let's Encrypt's cryptographic seal of approval</p>
+          </div>
+        </div>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          Your browser immediately starts validating this certificate. It checks: "Is this 
+          certificate really from Let's Encrypt? Is Let's Encrypt in my list of trusted 
+          Certificate Authorities? Does the domain match nytimes.com? Has it expired?"
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          This is the crucial security moment - your browser is verifying that you're really 
+          talking to NYTimes and not some imposter. The certificate is like a digital passport 
+          that proves identity through a chain of trust back to root Certificate Authorities 
+          built into your browser.
+        </p>
+      </div>
     </section>
   )
 }
