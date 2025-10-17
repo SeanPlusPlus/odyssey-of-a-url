@@ -452,6 +452,48 @@ export default function HttpSection() {
           built into your browser.
         </p>
       </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold">Step 8: Client Key Exchange</h3>
+        <p className="text-sm italic text-foreground/60 -mt-2">
+          Your browser sends its part of the encryption key generation
+        </p>
+        
+        <p className="text-base leading-relaxed text-foreground/80">
+          Certificate validation complete! Now it's **your browser's turn** to respond. Fastly 
+          is sitting idle, waiting for your browser to send back its part of the key exchange. 
+          Your browser generates its own temporary key pair and sends the public key to Fastly.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          Your browser creates a **Client Key Exchange** message containing its ECDHE public key. 
+          This is your browser saying "Here's my public key - now we can both calculate the same 
+          shared secret without anyone else being able to figure it out."
+        </p>
+
+        <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
+          <h4 className="font-semibold text-teal-900 dark:text-teal-100 mb-3">
+            🔑 Client Key Exchange Contents (~100 bytes)
+          </h4>
+          <div className="space-y-2 text-sm text-teal-800 dark:text-teal-200">
+            <p><strong>Your Public Key:</strong> Generated using x25519 curve (same as Fastly chose)</p>
+            <p><strong>Key Exchange Method:</strong> ECDHE (Elliptic Curve Diffie-Hellman Ephemeral)</p>
+            <p><strong>Purpose:</strong> Both sides can now derive identical encryption keys</p>
+          </div>
+        </div>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          Behind the scenes, your browser uses **Diffie-Hellman math**: it combines Fastly's 
+          public key (from the certificate) with your private key to generate a shared secret. 
+          Fastly will do the same calculation (your public key + Fastly's private key) and get 
+          the exact same result. This shared secret becomes your encryption key.
+        </p>
+
+        <p className="text-base leading-relaxed text-foreground/80">
+          The beauty: even if someone intercepts both public keys, they can't calculate the 
+          shared secret without the private keys (which never leave your browser or Fastly's server).
+        </p>
+      </div>
     </section>
   )
 }
